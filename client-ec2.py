@@ -12,6 +12,7 @@ import random
 import json
 import urllib
 import urllib.request
+import requests
 
 ec2_instance_ips = [
     '1.1.1.1',
@@ -19,7 +20,7 @@ ec2_instance_ips = [
     '3.3.3.3'
 ]
 
-DESTINATION_ADDRESS = '34.219.21.138:8000'
+DESTINATION_ADDRESS = 'http://34.219.21.138:3000'
 
 def getFirstHop():
     return ec2_instance_ips[random.randint(0, len(ec2_instance_ips)-1)]
@@ -27,11 +28,12 @@ def getFirstHop():
 def sendMessage(message):
     firstHop = getFirstHop()
     # getRequestParamURL = '?hop_count=2' + '&' + 'dest=' + message['dest'] + '&' + 'body=' + message['body']
-    m = DESTINATION_ADDRESS + '/?' + urllib.parse.urlencode(message)
-    print(m)
-    contents = urllib.request.urlopen(m).read()
-    print(contents)
-    # r = requests.post(DESTINATION, data=message)
+    # m = DESTINATION_ADDRESS + '/?' + urllib.parse.urlencode(message)
+    # print(m)
+    # contents = urllib.request.urlopen(m).read()
+    # print(contents)
+    r = requests.post(DESTINATION_ADDRESS, data=message)
+    print(r)
 
 
 
