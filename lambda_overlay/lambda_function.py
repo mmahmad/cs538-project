@@ -1,6 +1,7 @@
 import json
 import requests
 import random
+import math
 
 
 IPs=[
@@ -8,6 +9,28 @@ IPs=[
     'https://b9tmd8ucbf.execute-api.us-east-2.amazonaws.com/default/relay_node',
     'https://puit2a7od4.execute-api.us-west-1.amazonaws.com/default/relay_node',
 ]
+
+deg deg2rad(degrees):
+    return (degrees*math.pi)/180
+def distance(p1,p2): #(latitude,longitude) tuples
+    earthradius=6371
+    deglat=(p2[0]-p1[0])
+    deglong=(p2[1]-p1[1])
+    p1=deg2rad(p1[0])
+    p2=deg2rad(p2[0])
+    a=(math.sin(deglat/2)**2)+((math.sin(deglong/2)**2)*math.cos(p1[0])*math.cos(p2[0]))
+    c=2*math.atan2(math.sqrt(a),math.sqrt(1-a))
+    return earthradius*c
+def picktarget(mycoordinate,destination,destip):
+    targets={(37.926868, -78.024902):'https://4zjoii2pzf.execute-api.us-east-1.amazonaws.com/default/relay_node',(40.358615, -82.706838):'https://b9tmd8ucbf.execute-api.us-east-2.amazonaws.com/default/relay_node',(37.279518, -121.867905):'https://puit2a7od4.execute-api.us-west-1.amazonaws.com/default/relay_node'} #map from coordinates to contact addresses
+    bestkey=mycoordinate
+    for key in targets.keys():
+        if distance(key,destination)<distance(bestkey,destination):
+            bestkey=key
+    if bestkey!=mycoordinate:
+        return targets[bestkey]
+    else:
+        return destip
 
 def get_next_hop_ip():
     return random.choice(IPs)
