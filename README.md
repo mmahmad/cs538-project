@@ -1,5 +1,5 @@
-Development Setup
-=================
+Flask Development Setup
+=======================
 
 1) Install Python3
 2) Create new project dir: `mkdir project-dir`
