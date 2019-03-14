@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request, jsonify, abort
 
 app = Flask(__name__)
 
@@ -8,7 +8,7 @@ def index():
 
 @app.route('/forward', methods=['POST'])
 def forward():
-	if(request.form.get('hop_count') > 0):
+	if(int(request.form.get('hop_count')) > 0):
 		return "Will forward to EC2"
 	else:
 		return "Will forward to destination"
