@@ -15,7 +15,7 @@ import urllib.request
 import requests
 import math
 
-deg deg2rad(degrees):
+def deg2rad(degrees):
     return (degrees*math.pi)/180
 
 def distance(p1,p2): #(latitude,longitude) tuples
@@ -54,7 +54,7 @@ ec2_instance_ips = [
     '52.53.226.185:5000/forward', # west-1: N. California
 ]
 
-DESTINATION_ADDRESS = 'http://34.219.21.138:3000'
+DESTINATION_ADDRESS = '34.216.219.153:8000'
 
 def getFirstHop():
     return ec2_instance_ips[random.randint(0, len(ec2_instance_ips)-1)]
@@ -73,8 +73,8 @@ def sendMessage(message):
 
 if __name__ == "__main__":
     message = {}
-    message['hop_count'] = 2
-    message['dest'] = DESTINATION_ADDRESS
+    message['hop_number'] = 2
+    message['dest_IP'] = DESTINATION_ADDRESS
     message['body'] = 'Hello World!'
 
     sendMessage(message)

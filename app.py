@@ -12,7 +12,7 @@ IPs=[
     '52.53.226.185:5000/forward', # west-1: N. California
 ]
 
-deg deg2rad(degrees):
+def deg2rad(degrees):
     return (degrees*math.pi)/180
 
 def distance(p1,p2): #(latitude,longitude) tuples
