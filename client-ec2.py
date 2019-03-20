@@ -61,6 +61,8 @@ def getFirstHop():
 
 def sendMessage(message):
     firstHop = getFirstHop()
+    print("firstHop: ")
+    print(firstHop)
     # getRequestParamURL = '?hop_count=2' + '&' + 'dest=' + message['dest'] + '&' + 'body=' + message['body']
     # m = DESTINATION_ADDRESS + '/?' + urllib.parse.urlencode(message)
     # print(m)
