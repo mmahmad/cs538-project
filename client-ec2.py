@@ -68,7 +68,7 @@ def sendMessage(message):
     # print(m)
     # contents = urllib.request.urlopen(m).read()
     # print(contents)
-    r = requests.post(DESTINATION_ADDRESS, data=message)
+    r = requests.post(firstHop, data=message)
     print(r)
 
 
