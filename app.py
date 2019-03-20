@@ -57,6 +57,8 @@ def forward():
     data['body'] = request.form.get('body')
     data['dest_IP'] = request.form.get('dest_IP')
     data['dest_coord'] = request.form.get('dest_coord')
+    print("dest coord:")
+    print(data['dest_coord'])
 
     if(data['hop_number'] == 1):
         # return "Will forward to EC2"
