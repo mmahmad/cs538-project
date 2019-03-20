@@ -42,7 +42,7 @@ def get_next_hop_ip():
 def make_success_response(message):
     return json.dumps({
         'statusCode': 200,
-        'body': json.dumps(message)
+        'body': message
     })
 
 
