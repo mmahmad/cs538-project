@@ -40,10 +40,10 @@ def get_next_hop_ip():
     return random.choice(IPs)
 
 def make_success_response(message):
-    return {
+    return json.dumps({
         'statusCode': 200,
         'body': json.dumps(message)
-    }
+    })
 
 
 @app.route('/')
