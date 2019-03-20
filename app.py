@@ -53,7 +53,7 @@ def index():
 @app.route('/forward', methods=['POST'])
 def forward():
     data = {}
-    data['hop_number'] = int(request.form.get('hop_number')) - 1 # decrement data
+    data['hop_number'] = int(request.form.get('hop_number'))
     data['body'] = request.form.get('body')
     data['dest_IP'] = request.form.get('dest_IP')
     data['dest_coord'] = request.form.get('dest_coord')
