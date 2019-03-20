@@ -7,9 +7,9 @@ import math
 app = Flask(__name__)
 
 IPs=[
-    '3.80.248.156:5000/forward', # east-1: N. Virginia
-    '18.191.54.158:5000/forward', # east-2: Ohio
-    '52.53.226.185:5000/forward', # west-1: N. California
+    'http://3.80.248.156:5000/forward', # east-1: N. Virginia
+    'http://18.191.54.158:5000/forward', # east-2: Ohio
+    'http://52.53.226.185:5000/forward', # west-1: N. California
 ]
 
 def deg2rad(degrees):
