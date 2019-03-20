@@ -3,6 +3,7 @@ import json
 import requests
 import random
 import math
+import geocoder
 
 app = Flask(__name__)
 
@@ -34,8 +35,9 @@ def picktarget(mycoordinate,destination,destip):
     else:
         return destip
 
-def get_next_hop_ip():
-    return random.choice(IPs)
+def get_next_hop_ip(dest_coord, dest_IP):
+    mycoordinate = geocoder.ip('me')
+    return picktarget(tuple(mycoordinate.latlng), dest_coord, dest_IP)
 
 def make_success_response(message):
     return json.dumps({
@@ -54,6 +56,7 @@ def forward():
     data['hop_number'] = int(request.form.get('hop_number')) - 1 # decrement data
     data['body'] = request.form.get('body')
     data['dest_IP'] = request.form.get('dest_IP')
+    data['dest_coord'] = request.form.get('dest_coord')
 
     if(data['hop_number'] == 1):
         # return "Will forward to EC2"
@@ -66,7 +69,7 @@ def forward():
     else:
         # decrement hop_number. When hop_number equals 0, send to destination
         data['hop_number'] = int(request.form.get('hop_number')) - 1 # decrement data
-        IP=get_next_hop_ip()
+        IP=get_next_hop_ip(data['dest_coord'], data['dest_IP'])
         print('sending to: ', IP)
         r = requests.post(IP, data=data)
         

@@ -32,8 +32,6 @@ def distance(p1,p2): #(latitude,longitude) tuples
     earthradius=6371
     deglat=(p2[0]-p1[0])
     deglong=(p2[1]-p1[1])
-    p1=deg2rad(p1[0])
-    p2=deg2rad(p2[0])
     a=(math.sin(deglat/2)**2)+((math.sin(deglong/2)**2)*math.cos(p1[0])*math.cos(p2[0]))
     c=2*math.atan2(math.sqrt(a),math.sqrt(1-a))
     return earthradius*c
@@ -81,6 +79,7 @@ if __name__ == "__main__":
     message = {}
     message['hop_number'] = 2
     message['dest_IP'] = DESTINATION_ADDRESS
+    message['dest_coord'] = DESTINATION_COORDINATES
     message['body'] = 'Hello World!'
 
     sendMessage(message)
