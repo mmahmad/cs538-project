@@ -14,6 +14,16 @@ import urllib
 import urllib.request
 import requests
 import math
+import geocoder
+
+IPs = [
+    'http://3.80.248.156:5000/forward', # east-1: N. Virginia
+    'http://18.191.54.158:5000/forward', # east-2: Ohio
+    'http://52.53.226.185:5000/forward', # west-1: N. California
+]
+
+DESTINATION_ADDRESS = 'http://34.216.219.153:8000' # AWS Oregon
+DESTINATION_COORDINATES = (43.812502, -120.672999) # Oregon
 
 def deg2rad(degrees):
     return (degrees*math.pi)/180
@@ -48,16 +58,10 @@ def make_success_response(message):
         'body': json.dumps(message)
     }
 
-ec2_instance_ips = [
-    'http://3.80.248.156:5000/forward', # east-1: N. Virginia
-    'http://18.191.54.158:5000/forward', # east-2: Ohio
-    'http://52.53.226.185:5000/forward', # west-1: N. California
-]
-
-DESTINATION_ADDRESS = 'http://34.216.219.153:8000'
-
 def getFirstHop():
-    return ec2_instance_ips[random.randint(0, len(ec2_instance_ips)-1)]
+    # return IPs[random.randint(0, len(IPs)-1)]
+    mycoordinate = geocoder.ip('me')
+    return picktarget(tuple(mycoordinate.latlng), DESTINATION_COORDINATES, DESTINATION_ADDRESS)
 
 def sendMessage(message):
     firstHop = getFirstHop()
