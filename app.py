@@ -52,7 +52,12 @@ def index():
 
 @app.route('/forward', methods=['POST'])
 def forward():
-    if(int(request.form.get('hop_number')) == 1):
+    data = {}
+    data['hop_number'] = int(request.form.get('hop_number')) - 1 # decrement data
+    data['body'] = request.form.get('body')
+    data['dest_IP'] = request.form.get('dest_IP')
+
+    if(data['hop_number'] == 1):
         # return "Will forward to EC2"
         print("sending message to destination: ", data['dest_IP'])
         #r=requests.get("http://172.22.148.144:8000")
@@ -62,10 +67,7 @@ def forward():
 
     else:
         # decrement hop_number. When hop_number equals 0, send to destination
-        data = {}
         data['hop_number'] = int(request.form.get('hop_number')) - 1 # decrement data
-        data['body'] = request.form.get('body')
-        data['dest_IP'] = request.form.get('dest_IP')
         IP=get_next_hop_ip()
         print('sending to: ', IP)
         r = requests.post(IP, data=data)
