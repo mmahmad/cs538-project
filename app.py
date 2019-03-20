@@ -63,9 +63,9 @@ def forward():
     else:
         # decrement hop_number. When hop_number equals 0, send to destination
         data = {}
-        data['hop_number'] = int(requests.form.get('hop_number')) - 1 # decrement data
-        data['body'] = requests.form.get('body')
-        data['dest_IP'] = requests.form.get('dest_IP')
+        data['hop_number'] = int(request.form.get('hop_number')) - 1 # decrement data
+        data['body'] = request.form.get('body')
+        data['dest_IP'] = request.form.get('dest_IP')
         IP=get_next_hop_ip()
         print('sending to: ', IP)
         r = requests.post(IP, data=data)
