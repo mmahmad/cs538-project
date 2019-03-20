@@ -40,35 +40,35 @@ def get_next_hop_ip():
     return random.choice(IPs)
 
 def make_success_response(message):
-	return {
-	    'statusCode': 200,
-	    'body': json.dumps(message),
-	}
+    return {
+        'statusCode': 200,
+        'body': json.dumps(message)
+    }
 
 
 @app.route('/')
 def index():
-	return "Hello World!"
+    return "Hello World!"
 
 @app.route('/forward', methods=['POST'])
 def forward():
-	if(int(request.form.get('hop_number')) == 1):
-		# return "Will forward to EC2"
-		print("sending message to destination: ", data['dest_IP'])
+    if(int(request.form.get('hop_number')) == 1):
+        # return "Will forward to EC2"
+        print("sending message to destination: ", data['dest_IP'])
         #r=requests.get("http://172.22.148.144:8000")
         r = requests.get(data['dest_IP'], data=data)
         print("returned from requests.post")
         return make_success_response('success')
 
-	else:
-		# decrement hop_number. When hop_number equals 0, send to destination
-	    data['hop_number']-=1
-	    IP=get_next_hop_ip()
-	    print('sending to: ', IP)
-	    r = requests.post(IP, data=data)
-	    
-	    return make_success_response('success')		
+    else:
+        # decrement hop_number. When hop_number equals 0, send to destination
+        data['hop_number']-=1
+        IP=get_next_hop_ip()
+        print('sending to: ', IP)
+        r = requests.post(IP, data=data)
+        
+        return make_success_response('success')     
 
 if __name__ == '__main__':
-	app.debug = True
-	app.run(host='0.0.0.0')
+    app.debug = True
+    app.run(host='0.0.0.0')

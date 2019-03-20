@@ -45,7 +45,7 @@ def get_next_hop_ip():
 def make_success_response(message):
     return {
         'statusCode': 200,
-        'body': json.dumps(message),
+        'body': json.dumps(message)
     }
 
 ec2_instance_ips = [
