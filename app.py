@@ -5,6 +5,7 @@ import random
 import math
 import geocoder
 import sys
+import click
 
 app = Flask(__name__)
 
@@ -35,7 +36,7 @@ def picktarget(mycoordinate,destination,destip):
         targets={(37.926868, -78.024902): IPs[0], (40.358615, -82.706838): IPs[1]} #map from coordinates to contact addresses
     elif current_location == 'nvirg':
         targets={(40.358615, -82.706838): IPs[1], (37.279518, -121.867905): IPs[2]} #map from coordinates to contact addresses
-        
+
     bestkey=mycoordinate
     for key in targets.keys():
         if distance(key,destination)<distance(bestkey,destination):
@@ -87,11 +88,11 @@ def forward():
         return make_success_response('success')     
 
 if __name__ == '__main__':
-    if len(sys.argv == 1):
-        # no command-line arg given
-        print("Argument required: ohio, nvirg, ncali")
-        return
+
+    if len(sys.argv) == 1:
+        print("Location required as command line arg. Exiting.")
+        sys.exit()
 
     current_location = sys.argv[1]
-    app.debug = True
-    app.run(host='0.0.0.0')
+    app.debug = False
+    app.run(host='0.0.0.0', port=5000)
