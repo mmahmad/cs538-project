@@ -4,8 +4,11 @@ import requests
 import random
 import math
 import geocoder
+import sys
 
 app = Flask(__name__)
+
+current_location = None # set in main() from cmd-line arg
 
 IPs=[
     'http://3.80.248.156:5000/forward', # east-1: N. Virginia
@@ -25,7 +28,14 @@ def distance(p1,p2): #(latitude,longitude) tuples
     return earthradius*c
 
 def picktarget(mycoordinate,destination,destip):
-    targets={(37.926868, -78.024902): IPs[0], (40.358615, -82.706838): IPs[1], (37.279518, -121.867905): IPs[2]} #map from coordinates to contact addresses
+    # targets={(37.926868, -78.024902): IPs[0], (40.358615, -82.706838): IPs[1], (37.279518, -121.867905): IPs[2]} #map from coordinates to contact addresses
+    if current_location == 'ohio':
+        targets={(37.926868, -78.024902): IPs[0], (37.279518, -121.867905): IPs[2]} #map from coordinates to contact addresses
+    elif current_location == 'ncali':
+        targets={(37.926868, -78.024902): IPs[0], (40.358615, -82.706838): IPs[1]} #map from coordinates to contact addresses
+    elif current_location == 'nvirg':
+        targets={(40.358615, -82.706838): IPs[1], (37.279518, -121.867905): IPs[2]} #map from coordinates to contact addresses
+        
     bestkey=mycoordinate
     for key in targets.keys():
         if distance(key,destination)<distance(bestkey,destination):
@@ -77,5 +87,11 @@ def forward():
         return make_success_response('success')     
 
 if __name__ == '__main__':
+    if len(sys.argv == 1):
+        # no command-line arg given
+        print("Argument required: ohio, nvirg, ncali")
+        return
+
+    current_location = sys.argv[1]
     app.debug = True
     app.run(host='0.0.0.0')
