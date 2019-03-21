@@ -71,21 +71,37 @@ def forward():
     data['dest_coord_lng'] = float(request.form.get('dest_coord_lng'))
 
     if(data['hop_number'] == 1):
-        # return "Will forward to EC2"
-        print("sending message to destination: ", data['dest_IP'])
-        #r=requests.get("http://172.22.148.144:8000")
-        r = requests.get(data['dest_IP'], data=data)
-        print("returned from requests.post")
-        return make_success_response('success')
+        print("hop_number=1")
+        sendToDestination(data)
 
     else:
         # decrement hop_number. When hop_number equals 0, send to destination
         data['hop_number'] = int(request.form.get('hop_number')) - 1 # decrement data
         IP=get_next_hop_ip(tuple((data['dest_coord_lat'], data['dest_coord_lng'])), data['dest_IP'])
-        print('sending to: ', IP)
-        r = requests.post(IP, data=data)
+
+        '''
+        If the current node is closest to the destination, send message to dest directly instead of sending
+        to a relay node.
+        '''
+        if IP == data['dest_IP']:
+            sendToDestination(data)
+
+        '''
+        Else, send to the closest node
+        '''
+        else:
+            print('sending to: ', IP)
+            r = requests.post(IP, data=data)
         
-        return make_success_response('success')     
+    return make_success_response('success')
+
+'''
+GET request to destination server
+'''
+def sendToDestination(data):
+    print("sending message to destination: ", data['dest_IP'])
+    r = requests.get(data['dest_IP'], data=data)
+    print(r)
 
 if __name__ == '__main__':
 
