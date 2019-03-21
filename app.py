@@ -56,9 +56,8 @@ def forward():
     data['hop_number'] = int(request.form.get('hop_number'))
     data['body'] = request.form.get('body')
     data['dest_IP'] = request.form.get('dest_IP')
-    data['dest_coord'] = request.form.get('dest_coord')
-    print("dest coord:")
-    print(data['dest_coord'])
+    data['dest_coord_lat'] = request.form.get('dest_coord_lat')
+    data['dest_coord_lng'] = request.form.get('dest_coord_lng')
 
     if(data['hop_number'] == 1):
         # return "Will forward to EC2"
@@ -71,7 +70,7 @@ def forward():
     else:
         # decrement hop_number. When hop_number equals 0, send to destination
         data['hop_number'] = int(request.form.get('hop_number')) - 1 # decrement data
-        IP=get_next_hop_ip(data['dest_coord'], data['dest_IP'])
+        IP=get_next_hop_ip(tuple((data['dest_coord_lat'], data['dest_coord_lng'])), data['dest_IP'])
         print('sending to: ', IP)
         r = requests.post(IP, data=data)
         
