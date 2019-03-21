@@ -23,7 +23,7 @@ IPs = [
 ]
 
 DESTINATION_ADDRESS = 'http://34.216.219.153:8000' # AWS Oregon
-DESTINATION_COORDINATES = (43.812502, -120.672999) # Oregon
+DESTINATION_COORDINATES = tuple((43.812502, -120.672999)) # Oregon
 
 def deg2rad(degrees):
     return (degrees*math.pi)/180
@@ -77,9 +77,10 @@ def sendMessage(message):
 
 if __name__ == "__main__":
     message = {}
-    message['hop_number'] = 2
+    message['hop_number'] = 5
     message['dest_IP'] = DESTINATION_ADDRESS
-    message['dest_coord'] = DESTINATION_COORDINATES
+    message['dest_coord_lat'] = DESTINATION_COORDINATES[0]
+    message['dest_coord_lng'] = DESTINATION_COORDINATES[1]
     message['body'] = 'Hello World!'
 
     sendMessage(message)
