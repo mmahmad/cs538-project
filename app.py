@@ -89,8 +89,8 @@ def forward():
 
 if __name__ == '__main__':
 
-    if len(sys.argv) == 1:
-        print("Location required as command line arg. Exiting.")
+    if len(sys.argv) == 1 or not (sys.argv[1] == 'nvirg' or sys.argv[1] == 'ncali' or sys.argv[1] == 'ohio'):
+        print("Location required as command line arg (nvirg, ncali, or ohio). Exiting.")
         sys.exit()
 
     current_location = sys.argv[1]
