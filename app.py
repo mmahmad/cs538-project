@@ -82,13 +82,10 @@ def forward():
         '''
         If the current node is closest to the destination, send message to dest directly instead of sending
         to a relay node.
+        Else, send to closest node.
         '''
         if IP == data['dest_IP']:
             sendToDestination(data)
-
-        '''
-        Else, send to the closest node
-        '''
         else:
             print('sending to: ', IP)
             r = requests.post(IP, data=data)
