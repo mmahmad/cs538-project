@@ -64,12 +64,12 @@ def index():
 @app.route('/forward', methods=['POST'])
 def forward():
     data = {}
-    data['hop_number'] = int(request.form.get('hop_number'))
-    data['body'] = request.form.get('body')
-    data['dest_IP'] = request.form.get('dest_IP')
-    data['dest_coord_lat'] = float(request.form.get('dest_coord_lat'))
-    data['dest_coord_lng'] = float(request.form.get('dest_coord_lng'))
-    data['timestamp'] = float(request.form.get('timestamp'))
+    data['hop_number'] = int(request.args.get('hop_number'))
+    data['body'] = request.args.get('body')
+    data['dest_IP'] = request.args.get('dest_IP')
+    data['dest_coord_lat'] = float(request.args.get('dest_coord_lat'))
+    data['dest_coord_lng'] = float(request.args.get('dest_coord_lng'))
+    data['timestamp'] = float(request.args.get('timestamp'))
 
     if(data['hop_number'] == 1):
         print("hop_number=1")
@@ -77,7 +77,7 @@ def forward():
 
     else:
         # decrement hop_number. When hop_number equals 0, send to destination
-        data['hop_number'] = int(request.form.get('hop_number')) - 1 # decrement data
+        data['hop_number'] = int(request.args.get('hop_number')) - 1 # decrement data
         IP=get_next_hop_ip(tuple((data['dest_coord_lat'], data['dest_coord_lng'])), data['dest_IP'])
 
         '''
@@ -89,7 +89,7 @@ def forward():
             sendToDestination(data)
         else:
             print('sending to: ', IP)
-            r = requests.post(IP, data=data)
+            r = requests.post(IP, params=data)
         
     return make_success_response('success')
 

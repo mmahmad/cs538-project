@@ -71,18 +71,19 @@ def sendMessage(message):
     # print(m)
     # contents = urllib.request.urlopen(m).read()
     # print(contents)
-    r = requests.post(firstHop, data=message)
+    r = requests.post(firstHop, params=message)
     print(r)
 
 
 
 if __name__ == "__main__":
+
     message = {}
-    message['hop_number'] = 5
+    message['hop_number'] = 3
     message['dest_IP'] = DESTINATION_ADDRESS
     message['dest_coord_lat'] = DESTINATION_COORDINATES[0]
     message['dest_coord_lng'] = DESTINATION_COORDINATES[1]
-    message['body'] = 'Hello World!'
+    message['body'] = 'Test'
     message['timestamp'] = float(time.time())
 
     sendMessage(message)
