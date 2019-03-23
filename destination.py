@@ -12,7 +12,7 @@ def hello():
     origin_ts = data['timestamp']
     # need to convert to sec
     time_elapsed = time.time()-float(origin_ts)
-    return str("time taken for request: ", time_elapsed)
+    return ("time taken for request: " str(time_elapsed))
 
 
 # run the app.
