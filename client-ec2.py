@@ -78,13 +78,14 @@ def sendMessage(message):
 
 if __name__ == "__main__":
 
-    message = {}
-    message['hop_number'] = 3
-    message['dest_IP'] = DESTINATION_ADDRESS
-    message['dest_coord_lat'] = DESTINATION_COORDINATES[0]
-    message['dest_coord_lng'] = DESTINATION_COORDINATES[1]
-    message['body'] = 'Test'
-    message['timestamp'] = float(time.time())
+    for x in range(0,100):
+        message = {}
+        message['hop_number'] = 3
+        message['dest_IP'] = DESTINATION_ADDRESS
+        message['dest_coord_lat'] = DESTINATION_COORDINATES[0]
+        message['dest_coord_lng'] = DESTINATION_COORDINATES[1]
+        message['body'] = 'This is a message from Haseeb Wajid!'
+        message['timestamp'] = float(time.time())
 
-    sendMessage(message)
+        sendMessage(message)
 
