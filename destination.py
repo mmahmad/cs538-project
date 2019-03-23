@@ -11,7 +11,9 @@ def hello():
     data = request.args
     origin_ts = data['timestamp']
     # need to convert to sec
-    time_elapsed = time.time()-float(origin_ts)
+    time_elapsed = str(time.time()-float(origin_ts))
+    with open('times.txt', 'a+') as f:
+        f.write(time_elapsed)
     print(str(time_elapsed))
     return ("time taken for request: " + str(time_elapsed))
 
