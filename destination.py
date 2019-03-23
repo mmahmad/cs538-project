@@ -13,7 +13,7 @@ def hello():
     # need to convert to sec
     time_elapsed = str(time.time()-float(origin_ts))
     with open('times.txt', 'a+') as f:
-        f.write(time_elapsed)
+        f.write(time_elapsed + "\n")
     print(str(time_elapsed))
     return ("time taken for request: " + str(time_elapsed))
 
