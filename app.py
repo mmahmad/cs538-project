@@ -69,6 +69,7 @@ def forward():
     data['dest_IP'] = request.form.get('dest_IP')
     data['dest_coord_lat'] = float(request.form.get('dest_coord_lat'))
     data['dest_coord_lng'] = float(request.form.get('dest_coord_lng'))
+    data['timestamp'] = float(request.form.get('timestamp'))
 
     if(data['hop_number'] == 1):
         print("hop_number=1")
