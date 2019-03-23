@@ -8,7 +8,7 @@ app = Flask(__name__)
 @app.route('/', methods=['GET','POST'])
 def hello():
     print("->", request.form)
-    data = request.form
+    data = request.args
     origin_ts = data['timestamp']
     # need to convert to sec
     time_elapsed = time.time()-float(origin_ts)
