@@ -3,7 +3,7 @@ from flask import request
 import time
 
 
-app = Flask(_name_)
+app = Flask(__name__)
 
 @app.route('/', methods=['GET','POST'])
 def hello():
