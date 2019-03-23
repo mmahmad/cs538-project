@@ -83,7 +83,7 @@ if __name__ == "__main__":
     message['dest_coord_lat'] = DESTINATION_COORDINATES[0]
     message['dest_coord_lng'] = DESTINATION_COORDINATES[1]
     message['body'] = 'Hello World!'
-    message['timestamp'] = time.time()
+    message['timestamp'] = int(time.time())
 
     sendMessage(message)
 
