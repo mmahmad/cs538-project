@@ -69,7 +69,7 @@ def forward():
     data['dest_IP'] = request.form.get('dest_IP')
     data['dest_coord_lat'] = float(request.form.get('dest_coord_lat'))
     data['dest_coord_lng'] = float(request.form.get('dest_coord_lng'))
-    data['timestamp'] = int(request.form.get('timestamp'))
+    data['timestamp'] = float(request.form.get('timestamp'))
 
     if(data['hop_number'] == 1):
         print("hop_number=1")
@@ -98,7 +98,7 @@ GET request to destination server
 '''
 def sendToDestination(data):
     print("sending message to destination: ", data['dest_IP'])
-    r = requests.get(data['dest_IP'], data=data)
+    r = requests.get(data['dest_IP'], params=data)
     print(r)
 
 if __name__ == '__main__':
