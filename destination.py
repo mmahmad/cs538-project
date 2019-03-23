@@ -16,7 +16,7 @@ def hello():
 
 
 # run the app.
-if _name_ == "_main_":
+if __name__ == "__main__":
     # Setting debug to True enables debug output. This line should be
     # removed before deploying a production app.
     app.debug = True
