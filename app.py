@@ -12,9 +12,9 @@ app = Flask(__name__)
 current_location = None # set in main() from cmd-line arg
 
 IPs=[
-    'http://3.80.248.156:5000/forward', # east-1: N. Virginia
-    'http://18.191.54.158:5000/forward', # east-2: Ohio
-    'http://52.53.226.185:5000/forward', # west-1: N. California
+    'http://54.162.60.73:5000/forward', # east-1: N. Virginia
+    'http://18.218.55.58:5000/forward', # east-2: Ohio
+    'http://54.67.121.201:5000/forward', # west-1: N. California
 ]
 
 def deg2rad(degrees):

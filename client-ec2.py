@@ -18,9 +18,9 @@ import geocoder
 import time
 
 IPs = [
-    'http://3.80.248.156:5000/forward', # east-1: N. Virginia
-    'http://18.191.54.158:5000/forward', # east-2: Ohio
-    'http://52.53.226.185:5000/forward', # west-1: N. California
+    'http://54.162.60.73:5000/forward', # east-1: N. Virginia
+    'http://18.218.55.58:5000/forward', # east-2: Ohio
+    'http://54.67.121.201:5000/forward', # west-1: N. California
 ]
 
 DESTINATION_ADDRESS = 'http://34.216.219.153:8000' # AWS Oregon
