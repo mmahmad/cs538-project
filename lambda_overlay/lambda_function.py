@@ -25,7 +25,18 @@ def build_tree(coordinates):
     tree=KDTree(data)
     return tree
 def find_nearest(tree,coordinates):
-    return tree.query(sphere2cart(6400,math.radians(90-coordinates[0]),math.radians(coordinates[1])))
+    return tree.query(sphere2cart(6400,math.radians(90-coordinates[0]),math.radians(coordinates[1])))[1]
+def neopicktarget(mycoordinate,destination,destip,tree):
+    targets=['localhost',
+    'https://4zjoii2pzf.execute-api.us-east-1.amazonaws.com/default/relay_node',
+    'https://b9tmd8ucbf.execute-api.us-east-2.amazonaws.com/default/relay_node',
+    'https://puit2a7od4.execute-api.us-west-1.amazonaws.com/default/relay_node'
+    ] #map from tree indices to contact addresses
+    nearest_idx=find_nearest(tree,destination)
+    if nearest_idx==0:
+        return destip
+    else:
+        return targets[nearest_idx]
 
 
 IPs=[
@@ -55,6 +66,7 @@ def picktarget(mycoordinate,destination,destip):
         return targets[bestkey]
     else:
         return destip
+
 
 def get_next_hop_ip():
     return random.choice(IPs)
