@@ -1,15 +1,16 @@
 from flask import Flask
 from flask import request
 import time
-import signal
-import sys
+# import signal
+# import sys
+import atexit
 
 app = Flask(__name__)
 
 routingTimes = []
 
-def signal_handler(sig, frame):
-        print('You pressed Ctrl+C! Saving and exiting gracefully')
+def exit_handler():
+        print('exit_handler called')
         print("length of routingTimes:", len(routingTimes))
         with open('times.txt', 'a+') as f:
             for time_elapsed in routingTimes:
@@ -34,9 +35,10 @@ def hello():
 if __name__ == "__main__":
     # Setting debug to True enables debug output. This line should be
     # removed before deploying a production app.
-    signal.signal(signal.SIGINT, signal_handler)
-    print('Press Ctrl+C to exit')
+    # signal.signal(signal.SIGINT, signal_handler)
+    # print('Press Ctrl+C to exit')
+    atexit.register(exit_handler)
     app.debug = True
     app.run(host="0.0.0.0",port=8000)
-    signal.pause()
+    # signal.pause()
 
