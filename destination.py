@@ -1,21 +1,32 @@
 from flask import Flask
 from flask import request
 import time
-
+import signal
+import sys
 
 app = Flask(__name__)
 
+routingTimes = []
+
+def signal_handler(sig, frame):
+        print('You pressed Ctrl+C! Saving and exiting gracefully')
+        with open('times.txt', 'a+') as f:
+            for time_elapsed in routingTimes:
+                f.write(time_elapsed + "\n")
+        sys.exit(0)
+
 @app.route('/', methods=['GET','POST'])
 def hello():
-    print("->", request.form)
+    # print("->", request.form)
+    receivedTime = time.time()
     data = request.args
     origin_ts = data['timestamp']
     # need to convert to sec
-    time_elapsed = str(time.time()-float(origin_ts))
-    with open('times.txt', 'a+') as f:
-        f.write(time_elapsed + "\n")
-    print(str(time_elapsed))
-    return ("time taken for request: " + str(time_elapsed))
+    # time_elapsed = str(receivedTime-float(origin_ts))
+    routingTimes.append(str(receivedTime-float(origin_ts)))
+
+    # print(str(time_elapsed))
+    # return ("time taken for request: " + str(time_elapsed))
 
 
 # run the app.
@@ -24,3 +35,6 @@ if __name__ == "__main__":
     # removed before deploying a production app.
     app.debug = True
     app.run(host="0.0.0.0",port=8000)
+    signal.signal(signal.SIGINT, signal_handler)
+    print('Press Ctrl+C to exit')
+    signal.pause()
