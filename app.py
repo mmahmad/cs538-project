@@ -153,14 +153,21 @@ def sendToDestination(data):
 
 if __name__ == '__main__':
 
-    # if len(sys.argv) == 1 or not (sys.argv[1] == 'nvirg' or sys.argv[1] == 'ncali' or sys.argv[1] == 'ohio'):
-    #     print("Location required as command line arg (nvirg, ncali, or ohio). Exiting.")
-    #     sys.exit()
-    # current_location = sys.argv[1]
+    if len(sys.argv) == 1 or not (sys.argv[1] == 'nvirg' or sys.argv[1] == 'ncali' or sys.argv[1] == 'ohio'):
+        print("Location required as command line arg (nvirg, ncali, or ohio). Exiting.")
+        sys.exit()
+    current_location = sys.argv[1]
     
-    node_geocoordinates = geocoder.ip('me').latlng # returns [lat, lng] array
+    tree_coords = None # list of latlng coords. [0] must be current node's latlng
+    if current_location == 'nvirg':
+        tree_coords = [[37.926868, -78.024902], [40.358615, -82.706838],[37.279518, -121.867905]] # [0] is N. Virginia (local), [1] is Ohio, [2] is N. Cali.
+    elif current_location == 'ncali':
+        tree_coords = [[37.279518, -121.867905], [37.926868, -78.024902], [40.358615, -82.706838]] # [0] is N. Cali (local), [1] is N. Virginia, [2] is Ohio
+    elif current_location == 'ohio':
+        tree_coords = [[40.358615, -82.706838], [37.279518, -121.867905], [37.926868, -78.024902]] # [0] is Ohio (local), [1] is N. Cali, [2] is N. Virg
+    # node_geocoordinates = geocoder.ip('me').latlng # returns [lat, lng] array
     
-    tree = build_tree([node_geocoordinates, [40.358615, -82.706838],[37.279518, -121.867905]]) # [0] is N. Virginia (local), [1] is Ohio, [2] is N. Cali.
+    tree = build_tree(tree_coords) # [0] is N. Virginia (local), [1] is Ohio, [2] is N. Cali.
     print("t")
     print(t)
     app.debug = False
