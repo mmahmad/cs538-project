@@ -33,8 +33,9 @@ def hello():
 if __name__ == "__main__":
     # Setting debug to True enables debug output. This line should be
     # removed before deploying a production app.
-    app.debug = True
-    app.run(host="0.0.0.0",port=8000)
     signal.signal(signal.SIGINT, signal_handler)
     print('Press Ctrl+C to exit')
     signal.pause()
+    app.debug = True
+    app.run(host="0.0.0.0",port=8000)
+
