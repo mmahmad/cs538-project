@@ -29,7 +29,7 @@ IPs=[
     'http://54.153.24.72:5000/forward' # N. California
 ]
 
-DESTINATION_ADDRESS = 'http://34.217.75.213:8000' # AWS Oregon
+DESTINATION_ADDRESS = 'http://34.209.245.219:8000' # AWS Oregon
 DESTINATION_COORDINATES = tuple((43.812502, -120.672999)) # Oregon
 
 # Building tree for for client
@@ -57,19 +57,19 @@ def build_tree(coordinates):
 def find_nearest(tree,coordinates):
     return tree.query(sphere2cart(6400,math.radians(90-coordinates[0]),math.radians(coordinates[1])))[1]
 def picktarget(mycoordinate,destination,destip,tree):
-    my_ip = os.popen('curl -s ifconfig.me').readline()
-    my_ip = 'http://' + my_ip + ':5000/forward'
-    targets = list(IPs) # copy IPs
-    targets.remove(my_ip) # remove my_ip
-    targets.insert(0, my_ip) # insert my IP at the 0th index
-    # targets=[
-    #     IPs[0], # IP of current_node == N. Virginia
-    #     IPs[1],
-    #     IPs[2]
-    # # 'https://4zjoii2pzf.execute-api.us-east-1.amazonaws.com/default/relay_node',
-    # # 'https://b9tmd8ucbf.execute-api.us-east-2.amazonaws.com/default/relay_node',
-    # # 'https://puit2a7od4.execute-api.us-west-1.amazonaws.com/default/relay_node'
-    # ] #map from tree indices to contact addresses
+    # my_ip = os.popen('curl -s ifconfig.me').readline()
+    # my_ip = 'http://' + my_ip + ':5000/forward'
+    # targets = list(IPs) # copy IPs
+    # targets.remove(my_ip) # remove my_ip
+    # targets.insert(0, my_ip) # insert my IP at the 0th index
+    targets=[
+        IPs[0], # IP of current_node == N. Virginia
+        IPs[1],
+        IPs[2]
+    # 'https://4zjoii2pzf.execute-api.us-east-1.amazonaws.com/default/relay_node',
+    # 'https://b9tmd8ucbf.execute-api.us-east-2.amazonaws.com/default/relay_node',
+    # 'https://puit2a7od4.execute-api.us-west-1.amazonaws.com/default/relay_node'
+    ] #map from tree indices to contact addresses
     nearest_idx=find_nearest(tree,destination)
     if nearest_idx==0:
         return destip
@@ -128,19 +128,20 @@ def sendMessage(message):
 if __name__ == "__main__":
 
     # create tree
-    my_coords = geocoder.ip('me').latlng
-    tree_coords = [my_coords, [37.926868, -78.024902], [40.358615, -82.706838],[37.279518, -121.867905]] # [0] is my_coords, [1] is N. Virginia (local), [2] is Ohio, [3] is N. Cali.
+    # my_coords = geocoder.ip('me').latlng
+    # tree_coords = [my_coords, [37.926868, -78.024902], [40.358615, -82.706838],[37.279518, -121.867905]] # [0] is my_coords, [1] is N. Virginia (local), [2] is Ohio, [3] is N. Cali.
+    tree_coords = [[37.926868, -78.024902], [40.358615, -82.706838],[37.279518, -121.867905]] # [0] is my_coords, [1] is N. Virginia (local), [2] is Ohio, [3] is N. Cali.
     tree = build_tree(tree_coords) # [0] is N. Virginia (local), [1] is Ohio, [2] is N. Cali.
 
-    # for x in range(0,100):
+    for x in range(0,100):
 
-    message = {}
-    message['hop_number'] = 3
-    message['dest_IP'] = DESTINATION_ADDRESS
-    message['dest_coord_lat'] = DESTINATION_COORDINATES[0]
-    message['dest_coord_lng'] = DESTINATION_COORDINATES[1]
-    message['body'] = 'This is a message from Haseeb Wajid!'
-    message['timestamp'] = float(time.time())
+        message = {}
+        message['hop_number'] = 3
+        message['dest_IP'] = DESTINATION_ADDRESS
+        message['dest_coord_lat'] = DESTINATION_COORDINATES[0]
+        message['dest_coord_lng'] = DESTINATION_COORDINATES[1]
+        message['body'] = 'This is a message from Haseeb Wajid!'
+        message['timestamp'] = float(time.time())
 
-    sendMessage(message)
+        sendMessage(message)
 
