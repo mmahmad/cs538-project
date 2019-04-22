@@ -10,6 +10,7 @@ routingTimes = []
 
 def signal_handler(sig, frame):
         print('You pressed Ctrl+C! Saving and exiting gracefully')
+        print("length of routingTimes:", len(routingTimes))
         with open('times.txt', 'a+') as f:
             for time_elapsed in routingTimes:
                 f.write(time_elapsed + "\n")
