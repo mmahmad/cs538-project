@@ -22,11 +22,11 @@ def hello():
     data = request.args
     origin_ts = data['timestamp']
     # need to convert to sec
-    # time_elapsed = str(receivedTime-float(origin_ts))
-    routingTimes.append(str(receivedTime-float(origin_ts)))
+    time_elapsed = str(receivedTime-float(origin_ts))
+    routingTimes.append(time_elapsed)
 
     # print(str(time_elapsed))
-    # return ("time taken for request: " + str(time_elapsed))
+    return ("time taken for request: " + str(time_elapsed))
 
 
 # run the app.
