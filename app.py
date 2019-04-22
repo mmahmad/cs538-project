@@ -168,7 +168,5 @@ if __name__ == '__main__':
     # node_geocoordinates = geocoder.ip('me').latlng # returns [lat, lng] array
     
     tree = build_tree(tree_coords) # [0] is N. Virginia (local), [1] is Ohio, [2] is N. Cali.
-    print("t")
-    print(t)
     app.debug = False
     app.run(host='0.0.0.0', port=5000)
