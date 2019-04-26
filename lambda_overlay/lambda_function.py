@@ -2,41 +2,6 @@ import json
 import requests
 import random
 import math
-import numpy as np
-from scipy.spatial import KDTree
-
-def sphere2cart(r,phi,theta):
-    #x=r sin phi cos theta
-    #y= r sin phi sin theta
-    #z= r cos phi
-    x=r*math.sin(phi)*math.cos(theta)
-    y=r*math.sin(phi)*math.sin(theta)
-    z=r*math.cos(phi)
-    return (x,y,z)
-def build_tree(coordinates):
-    r=6400 #kilometres
-    #latitude is (90 degrees - phi), longitude is theta
-    data=np.zeros(shape=(len(coordinates),3),dtype=np.float)
-    for i in range(len(coordinates)):
-        latitude=coordinates[i][0]
-        longitude=coordinates[i][1]
-        data[i]=sphere2cart(r,math.radians(90-latitude),math.radians(longitude))
-    print(data)
-    tree=KDTree(data)
-    return tree
-def find_nearest(tree,coordinates):
-    return tree.query(sphere2cart(6400,math.radians(90-coordinates[0]),math.radians(coordinates[1])))[1]
-def neopicktarget(mycoordinate,destination,destip,tree):
-    targets=['localhost',
-    'https://4zjoii2pzf.execute-api.us-east-1.amazonaws.com/default/relay_node',
-    'https://b9tmd8ucbf.execute-api.us-east-2.amazonaws.com/default/relay_node',
-    'https://puit2a7od4.execute-api.us-west-1.amazonaws.com/default/relay_node'
-    ] #map from tree indices to contact addresses
-    nearest_idx=find_nearest(tree,destination)
-    if nearest_idx==0:
-        return destip
-    else:
-        return targets[nearest_idx]
 
 
 IPs=[
@@ -66,7 +31,6 @@ def picktarget(mycoordinate,destination,destip):
         return targets[bestkey]
     else:
         return destip
-
 
 def get_next_hop_ip():
     return random.choice(IPs)
