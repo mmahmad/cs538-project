@@ -24,14 +24,14 @@ import time
 # ]
 
 IpTable={
-    (37.9821704,-81.7696267): 'http://34.204.74.243:5000/forward', # east-1: N. Virginia
-    (40.3436035,-84.9124752): 'http://13.58.203.246:5000/forward', # east-2: Ohio
-    (38.8120855,-124.5556146): 'http://54.215.188.3:5000/forward', # west-1: N. California
+    (36.850947, -76.280997): 'http://34.204.74.243:5000/forward', # east-1: N. Virginia
+    (39.961083, -82.998592): 'http://13.58.203.246:5000/forward', # east-2: Ohio
+    (38.579675, -121.489587): 'http://54.215.188.3:5000/forward', # west-1: N. California
     
-    (44.1234992,-122.8263855): 'http://35.166.131.254:5000/forward', # Oregon
-    (19.0821978,72.7410999): 'http://13.232.9.79:5000/forward', # Mumbai
-    (37.5650172,126.8494656): 'http://13.125.255.243:5000/forward', # Seoul
-    (1.3139961,103.7041632): 'http://54.255.237.155:5000/forward', # Singapore
+    (45.516595, -122.679850): 'http://35.166.131.254:5000/forward', # Oregon
+    (19.082792, 72.883933): 'http://13.232.9.79:5000/forward', # Mumbai
+    (37.553507, 126.986781): 'http://13.125.255.243:5000/forward', # Seoul
+    (1.352437, 103.860736): 'http://54.255.237.155:5000/forward', # Singapore
     (-33.847927,150.6517866): 'http://54.252.137.172:5000/forward', # Sydney
     (35.5040536,138.6486313): 'http://13.114.92.252:5000/forward', # Tokyo
     (50.8325132,-130.1073912): 'http://35.183.35.149:5000/forward', # Central Canada
@@ -43,13 +43,13 @@ IpTable={
 }
 
 coordinateMapping = {
-    "nvirg": (37.9821704,-81.7696267),
-    "ncali": (38.8120855,-124.5556146),
-    "ohio": (40.3436035,-84.9124752),
-    "oregon": (44.1234992,-122.8263855),
-    "mumbai": (19.0821978,72.7410999),
-    "seoul": (37.5650172,126.8494656),
-    "singapore": (1.3139961,103.7041632),
+    "nvirg": (36.850947, -76.280997),
+    "ncali": (38.579675, -121.489587),
+    "ohio": (39.961083, -82.998592),
+    "oregon": (45.516595, -122.679850),
+    "mumbai": (19.082792, 72.883933),
+    "seoul": (37.553507, 126.986781),
+    "singapore": (1.352437, 103.860736),
     "sydney": (-33.847927,150.6517866),
     "tokyo": (35.5040536,138.6486313),
     "canada": (50.8325132,-130.1073912),
@@ -82,8 +82,11 @@ targets = {}
 
 
 # } 
-DESTINATION_ADDRESS = 'http://34.217.75.213:8000' # AWS Oregon
-DESTINATION_COORDINATES = tuple((43.812502, -120.672999)) # Oregon
+# DESTINATION_ADDRESS = 'http://34.217.75.213:8000' # AWS Oregon
+# DESTINATION_COORDINATES = tuple((43.812502, -120.672999)) # Oregon
+
+DESTINATION_ADDRESS = 'http://40.117.176.175:8000' # AWS Oregon
+DESTINATION_COORDINATES = tuple((38.0033855,-79.4209249)) # Azure US-East (Virginia)
 
 def getTargets():
 
@@ -111,8 +114,13 @@ def picktarget(mycoordinate,destination,destip):
     # targets={(37.926868, -78.024902): IPs[0], (40.358615, -82.706838): IPs[1], (37.279518, -121.867905): IPs[2]} #map from coordinates to contact addresses
     bestkey=mycoordinate
     for key in targets.keys():
+        print("key: " + str(key) + ", name: " + list(coordinateMapping.keys())[list(coordinateMapping.values()).index(key)])
+        print("destination: ", destination)
+        print("distance(key, destination): ", str(distance(key, destination)))
         if distance(key,destination)<distance(bestkey,destination):
             bestkey=key
+    print("selected key: ")
+    print(bestkey)
     if bestkey!=mycoordinate:
         return targets[bestkey]
     else:
@@ -152,14 +160,14 @@ if __name__ == "__main__":
     getTargets()
 
 
-    for x in range(0,100):
-        message = {}
-        message['hop_number'] = 3
-        message['dest_IP'] = DESTINATION_ADDRESS
-        message['dest_coord_lat'] = DESTINATION_COORDINATES[0]
-        message['dest_coord_lng'] = DESTINATION_COORDINATES[1]
-        message['body'] = 'This is a message from Haseeb Wajid!'
-        message['timestamp'] = float(time.time())
+    # for x in range(0,100):
+    message = {}
+    message['hop_number'] = 3
+    message['dest_IP'] = DESTINATION_ADDRESS
+    message['dest_coord_lat'] = DESTINATION_COORDINATES[0]
+    message['dest_coord_lng'] = DESTINATION_COORDINATES[1]
+    message['body'] = 'This is a message from Haseeb Wajid!'
+    message['timestamp'] = float(time.time())
 
-        sendMessage(message)
+    sendMessage(message)
 
