@@ -7,11 +7,12 @@ app = Flask(__name__)
 
 @app.route('/', methods=['GET','POST'])
 def hello():
+    current_ts = time.time()
     print("->", request.form)
     data = request.args
     origin_ts = data['timestamp']
     # need to convert to sec
-    time_elapsed = str(time.time()-float(origin_ts))
+    time_elapsed = str(current_ts-float(origin_ts))
     with open('times.txt', 'a+') as f:
         f.write(time_elapsed + "\n")
     print(str(time_elapsed))
