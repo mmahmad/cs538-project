@@ -165,8 +165,11 @@ def sendToDestination(data):
 
 if __name__ == '__main__':
 
-    if len(sys.argv) == 1 or not (sys.argv[1] == 'nvirg' or sys.argv[1] == 'ncali' or sys.argv[1] == 'ohio'):
-        print("Location required as command line arg (nvirg, ncali, or ohio). Exiting.")
+    cities = [k for k,v in coordinateMapping.items()]
+
+    if len(sys.argv) == 1 or sys.argv[1] not in cities:
+        print("Exiting. Location required as command line arg:")
+        print(cities)
         sys.exit()
 
     current_location = sys.argv[1]
