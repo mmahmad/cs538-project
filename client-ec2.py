@@ -85,7 +85,7 @@ targets = {}
 # DESTINATION_ADDRESS = 'http://34.217.75.213:8000' # AWS Oregon
 # DESTINATION_COORDINATES = tuple((43.812502, -120.672999)) # Oregon
 
-DESTINATION_ADDRESS = 'http://13.82.226.87:8000' # AWS Oregon
+DESTINATION_ADDRESS = 'http://13.82.226.87:8000' # Azure US-East (Virginia)
 DESTINATION_COORDINATES = tuple((38.0033855,-79.4209249)) # Azure US-East (Virginia)
 
 def getTargets():
@@ -104,9 +104,9 @@ def deg2rad(degrees):
 
 def distance(p1,p2): #(latitude,longitude) tuples
     earthradius=6371
-    deglat=(p2[0]-p1[0])
-    deglong=(p2[1]-p1[1])
-    a=(math.sin(deglat/2)**2)+((math.sin(deglong/2)**2)*math.cos(p1[0])*math.cos(p2[0]))
+    deglat=deg2rad(p2[0]-p1[0])
+    deglong=deg2rad(p2[1]-p1[1])
+    a=(math.sin(deglat/2)**2)+((math.sin(deglong/2)**2)*math.cos(deg2rad(p1[0]))*math.cos(deg2rad(p2[0])))
     c=2*math.atan2(math.sqrt(a),math.sqrt(1-a))
     return earthradius*c
 
