@@ -102,15 +102,16 @@ def picktarget(mycoordinate,destination,destip):
     #     targets={(40.358615, -82.706838): IPs[1], (37.279518, -121.867905): IPs[2]} #map from coordinates to contact addresses
 
     bestkey=mycoordinate
-    print("my coordinate: ")
-    print(mycoordinate)
-    print("distance(mycoordinate, destination): ", str(distance(bestkey, destination)))
     for key in targets.keys():
+<<<<<<< HEAD
         print("key: " + str(key) + ", name: " + list(coordinateMapping.keys())[list(coordinateMapping.values()).index(key)])
         print("destination: ", destination)
         print("distance(key, destination)+distance(mycoordinate, key): ", str(distance(key, destination)+distance(mycoordinate, key)))
         
         if (distance(key,destination) + distance(mycoordinate, key)) < (distance(bestkey,destination) + distance(mycoordinate, bestkey)):
+=======
+        if distance(key,destination)<distance(bestkey,destination):
+>>>>>>> parent of d084e7f... Add debug print stmt
             bestkey=key
     if bestkey!=mycoordinate:
         return targets[bestkey]
