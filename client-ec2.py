@@ -24,22 +24,22 @@ import time
 # ]
 
 IpTable={
-    (36.850947, -76.280997): 'http://3.82.49.118:5000/forward', # east-1: N. Virginia
-    (39.961083, -82.998592): 'http://18.191.224.241:5000/forward', # east-2: Ohio
-    (38.579675, -121.489587): 'http://13.57.252.78:5000/forward', # west-1: N. California
+    (36.850947, -76.280997): 'http://3.81.54.231:5000/forward', # east-1: N. Virginia
+    (39.961083, -82.998592): 'http://18.223.33.80:5000/forward', # east-2: Ohio
+    (38.579675, -121.489587): 'http://13.57.225.237:5000/forward', # west-1: N. California
     
-    (45.516595, -122.679850): 'http://34.217.13.95:5000/forward', # Oregon
-    (19.082792, 72.883933): 'http://13.232.130.166:5000/forward', # Mumbai
-    (37.553507, 126.986781): 'http://52.79.84.130:5000/forward', # Seoul
-    (1.352437, 103.860736): 'http://13.229.251.105:5000/forward', # Singapore
-    (-33.847927,150.6517866): 'http://13.239.12.200:5000/forward', # Sydney
-    (35.5040536,138.6486313): 'http://54.95.11.194:5000/forward', # Tokyo
-    (50.8325132,-130.1073912): 'http://99.79.31.193:5000/forward', # Central Canada
-    (50.1211277,8.4964811): 'http://52.59.227.219:5000/forward', # Frankfurt
-    (53.3942356,-10.1983315): 'http://18.203.161.211:5000/forward', # Ireland
-    (51.5285582,-0.2416811): 'http://3.8.1.114:5000/forward', # London
-    (48.8588377,2.2770203): 'http://35.180.100.8:5000/forward', # Paris
-    (59.3260668,17.8419713): 'http://13.53.216.250:5000/forward', # Stockholm
+    (45.516595, -122.679850): 'http://34.216.20.100:5000/forward', # Oregon
+    (19.082792, 72.883933): 'http://35.154.104.187:5000/forward', # Mumbai
+    (37.553507, 126.986781): 'http://13.125.177.199:5000/forward', # Seoul
+    (1.352437, 103.860736): 'http://13.250.32.195:5000/forward', # Singapore
+    (-33.847927,150.6517866): 'http://13.211.45.196:5000/forward', # Sydney
+    (35.5040536,138.6486313): 'http://13.115.78.23:5000/forward', # Tokyo
+    (50.8325132,-130.1073912): 'http://99.79.78.185:5000/forward', # Central Canada
+    (50.1211277,8.4964811): 'http://3.122.223.96:5000/forward', # Frankfurt
+    (53.3942356,-10.1983315): 'http://52.213.255.155:5000/forward', # Ireland
+    (51.5285582,-0.2416811): 'http://35.178.244.126:5000/forward', # London
+    (48.8588377,2.2770203): 'http://35.181.26.104:5000/forward', # Paris
+    (59.3260668,17.8419713): 'http://13.48.26.253:5000/forward', # Stockholm
 }
 
 coordinateMapping = {
@@ -171,18 +171,18 @@ if __name__ == "__main__":
     getTargets()
 
 
-    for x in range(0,100):
-        message = {}
-        message['hop_number'] = 3
-        message['dest_IP'] = DESTINATION_ADDRESS
-        message['dest_coord_lat'] = DESTINATION_COORDINATES[0]
-        message['dest_coord_lng'] = DESTINATION_COORDINATES[1]
-        message['body'] = 'This is a message from Haseeb Wajid!'
-        message['timestamp'] = float(time.time())
+# for x in range(0,100):
+    message = {}
+    message['hop_number'] = 3
+    message['dest_IP'] = DESTINATION_ADDRESS
+    message['dest_coord_lat'] = DESTINATION_COORDINATES[0]
+    message['dest_coord_lng'] = DESTINATION_COORDINATES[1]
+    message['body'] = 'This is a message from Haseeb Wajid!'
+    message['timestamp'] = float(time.time())
 
-        # Use for direct routing
-        # sendMessage(message, direct_routing=True)
+    # Use for direct routing
+    # sendMessage(message, direct_routing=True)
 
-        # Routing via overlay
-        sendMessage(message, direct_routing=False)
+    # Routing via overlay
+    sendMessage(message, direct_routing=False)
 
