@@ -103,15 +103,7 @@ def picktarget(mycoordinate,destination,destip):
 
     bestkey=mycoordinate
     for key in targets.keys():
-<<<<<<< HEAD
-        print("key: " + str(key) + ", name: " + list(coordinateMapping.keys())[list(coordinateMapping.values()).index(key)])
-        print("destination: ", destination)
-        print("distance(key, destination)+distance(mycoordinate, key): ", str(distance(key, destination)+distance(mycoordinate, key)))
-        
-        if (distance(key,destination) + distance(mycoordinate, key)) < (distance(bestkey,destination) + distance(mycoordinate, bestkey)):
-=======
         if distance(key,destination)<distance(bestkey,destination):
->>>>>>> parent of d084e7f... Add debug print stmt
             bestkey=key
     if bestkey!=mycoordinate:
         return targets[bestkey]
