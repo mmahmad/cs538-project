@@ -72,6 +72,8 @@ def getTargets():
 
     # using the current_location, get coords of all other locations
     coords = [v for k,v in coordinateMapping.items() if k != current_location]
+    print("coords:") 
+    print(coords)
 
     # for each coords, add {coord: ip} in targets
     for coord in coords:
