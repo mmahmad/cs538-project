@@ -85,8 +85,8 @@ targets = {}
 # DESTINATION_ADDRESS = 'http://34.217.75.213:8000' # AWS Oregon
 # DESTINATION_COORDINATES = tuple((43.812502, -120.672999)) # Oregon
 
-DESTINATION_ADDRESS = 'http://13.82.226.87:8000' # Azure US-East (Virginia)
-DESTINATION_COORDINATES = tuple((38.0033855,-79.4209249)) # Azure US-East (Virginia)
+DESTINATION_ADDRESS = 'http://40.74.78.170:8000' # Azure West Japan
+DESTINATION_COORDINATES = tuple((35.5040536,138.6486313)) # Azure West Japan
 
 def getTargets():
 
