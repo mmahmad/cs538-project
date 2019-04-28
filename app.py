@@ -73,7 +73,7 @@ def getTargets():
     neighborDict = {"canada": ["oregon", "ohio", "tokyo", "sydney", "ncali"],
                     "oregon": ["ncali", "ohio", "nvirg", "canada", "sydney"],
                     "ncali": ["oregon", "ohio", "nvirg", "canada"],
-                    "ohio": ["ncali", "canada", "nvirg"],
+                    "ohio": ["ncali", "canada", "nvirg", "oregon"],
                     "nvirg": ["oregon", "ncali", "ohio", "ireland", "london"],
                     "ireland": ["ohio", "nvirg", "london", "paris"],
                     "london": ["nvirg", "ireland", "paris", "frankfurt"],
