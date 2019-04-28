@@ -110,7 +110,7 @@ def picktarget(mycoordinate,destination,destip):
         print("destination: ", destination)
         print("distance(key, destination)+distance(mycoordinate, key): ", str(distance(key, destination)+distance(mycoordinate, key)))
         
-        if (distance(key,destination) + distance(mycoordinate, key))<distance(bestkey,destination):
+        if (distance(key,destination) + distance(mycoordinate, key)) < (distance(bestkey,destination) + distance(mycoordinate, bestkey)):
             bestkey=key
     if bestkey!=mycoordinate:
         return targets[bestkey]
