@@ -70,20 +70,20 @@ coordinateMapping = {
 
 def getTargets():
 
-    neighborDict = {"canada": ["oregon", "ohio", "tokyo", "sydney", "ncali"]
-                    "oregon": ["ncali", "ohio", "nvirg", "canada", "sydney"]
-                    "ncali": ["oregon", "ohio", "nvirg", "canada"]
-                    "ohio": ["ncali", "canada", "nvirg"]
-                    "nvirg": ["oregon", "ncali", "ohio", "ireland", "london"]
-                    "ireland": ["ohio", "nvirg", "london", "paris"]
-                    "london": ["nvirg", "ireland", "paris", "frankfurt"]
-                    "paris": ["ireland", "paris", "frankfurt", "stockholm"]
-                    "frankfurt": ["london", "paris", "stockholm", "mumbai"]
-                    "stockholm": ["frankfurt", "paris", "mumbai", "singapore"]
-                    "mumbai": ["frankfurt", "stockholm", "singapore", "seoul"]
-                    "singapore": ["stockholm", "mumbai", "seoul", "tokyo"]
-                    "seoul": ["mumbai", "singapore", "tokyo", "sidney"]
-                    "tokyo": ["singapore", "seoul", "sydney", "canada"]
+    neighborDict = {"canada": ["oregon", "ohio", "tokyo", "sydney", "ncali"],
+                    "oregon": ["ncali", "ohio", "nvirg", "canada", "sydney"],
+                    "ncali": ["oregon", "ohio", "nvirg", "canada"],
+                    "ohio": ["ncali", "canada", "nvirg"],
+                    "nvirg": ["oregon", "ncali", "ohio", "ireland", "london"],
+                    "ireland": ["ohio", "nvirg", "london", "paris"],
+                    "london": ["nvirg", "ireland", "paris", "frankfurt"],
+                    "paris": ["ireland", "paris", "frankfurt", "stockholm"],
+                    "frankfurt": ["london", "paris", "stockholm", "mumbai"],
+                    "stockholm": ["frankfurt", "paris", "mumbai", "singapore"],
+                    "mumbai": ["frankfurt", "stockholm", "singapore", "seoul"],
+                    "singapore": ["stockholm", "mumbai", "seoul", "tokyo"],
+                    "seoul": ["mumbai", "singapore", "tokyo", "sidney"],
+                    "tokyo": ["singapore", "seoul", "sydney", "canada"],
                     "sydney": ["seoul", "tokyo", "canada", "oregon"]}
 
     # get neighbors using current_location
