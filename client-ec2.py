@@ -119,8 +119,10 @@ def picktarget(mycoordinate,destination,destip):
         print("key: " + str(key) + ", name: " + list(coordinateMapping.keys())[list(coordinateMapping.values()).index(key)])
         print("destination: ", destination)
         print("distance(key, destination): ", str(distance(key, destination)))
-        if distance(key,destination)<distance(bestkey,destination):
-            bestkey=key
+        # if distance(key,destination)<distance(bestkey,destination):
+        #     bestkey=key
+        if distance(mycoordinate, key) < distance(mycoordinate, bestkey):
+            bestkey = key
     print("selected key: ")
     print(bestkey)
     if bestkey!=mycoordinate:
