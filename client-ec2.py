@@ -147,7 +147,7 @@ def getFirstHop():
     print(mycoordinate)
     return picktarget(tuple(mycoordinate.latlng), DESTINATION_COORDINATES, DESTINATION_ADDRESS)
 
-def sendMessage(message):
+def sendMessage(message, direct_routing=False):
     firstHop = getFirstHop()
     print("firstHop: ")
     print(firstHop)
@@ -156,7 +156,11 @@ def sendMessage(message):
     # print(m)
     # contents = urllib.request.urlopen(m).read()
     # print(contents)
-    r = requests.post(firstHop, params=message)
+
+    if direct_routing:
+        r = requests.get(message['dest_IP'], params=message)
+    else:
+        r = requests.post(firstHop, params=message)
     print(r)
 
 
@@ -167,14 +171,18 @@ if __name__ == "__main__":
     getTargets()
 
 
-    # for x in range(0,100):
-    message = {}
-    message['hop_number'] = 3
-    message['dest_IP'] = DESTINATION_ADDRESS
-    message['dest_coord_lat'] = DESTINATION_COORDINATES[0]
-    message['dest_coord_lng'] = DESTINATION_COORDINATES[1]
-    message['body'] = 'This is a message from Haseeb Wajid!'
-    message['timestamp'] = float(time.time())
+    for x in range(0,100):
+        message = {}
+        message['hop_number'] = 3
+        message['dest_IP'] = DESTINATION_ADDRESS
+        message['dest_coord_lat'] = DESTINATION_COORDINATES[0]
+        message['dest_coord_lng'] = DESTINATION_COORDINATES[1]
+        message['body'] = 'This is a message from Haseeb Wajid!'
+        message['timestamp'] = float(time.time())
 
-    sendMessage(message)
+        # Use for direct routing
+        # sendMessage(message, direct_routing=True)
+
+        # Routing via overlay
+        sendMessage(message, direct_routing=False)
 
