@@ -70,8 +70,27 @@ coordinateMapping = {
 
 def getTargets():
 
+    neighborDict = {"canada": ["oregon", "ohio", "tokyo", "sydney", "ncali"]
+                    "oregon": ["ncali", "ohio", "nvirg", "canada", "sydney"]
+                    "ncali": ["oregon", "ohio", "nvirg", "canada"]
+                    "ohio": ["ncali", "canada", "nvirg"]
+                    "nvirg": ["oregon", "ncali", "ohio", "ireland", "london"]
+                    "ireland": ["ohio", "nvirg", "london", "paris"]
+                    "london": ["nvirg", "ireland", "paris", "frankfurt"]
+                    "paris": ["ireland", "paris", "frankfurt", "stockholm"]
+                    "frankfurt": ["london", "paris", "stockholm", "mumbai"]
+                    "stockholm": ["frankfurt", "paris", "mumbai", "singapore"]
+                    "mumbai": ["frankfurt", "stockholm", "singapore", "seoul"]
+                    "singapore": ["stockholm", "mumbai", "seoul", "tokyo"]
+                    "seoul": ["mumbai", "singapore", "tokyo", "sidney"]
+                    "tokyo": ["singapore", "seoul", "sydney", "canada"]
+                    "sydney": ["seoul", "tokyo", "canada", "oregon"]}
+
+    # get neighbors using current_location
+    nodeNeighbors = neighborDict[current_location]
+
     # using the current_location, get coords of all other locations
-    coords = [v for k,v in coordinateMapping.items() if k != current_location]
+    coords = [v for k,v in coordinateMapping.items() if k != current_location and k in nodeNeighbors]
     print("coords:") 
     print(coords)
 
@@ -103,7 +122,11 @@ def picktarget(mycoordinate,destination,destip):
 
     bestkey=mycoordinate
     for key in targets.keys():
+        print("key: " + str(key) + ", name: " + list(coordinateMapping.keys())[list(coordinateMapping.values()).index(key)])
+        print("destination: ", destination)
+        print("distance(key,destination): ", distance(key,destination))
         if distance(key,destination)<distance(bestkey,destination):
+            
             bestkey=key
     if bestkey!=mycoordinate:
         return targets[bestkey]
