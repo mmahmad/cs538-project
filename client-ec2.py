@@ -112,7 +112,8 @@ def distance(p1,p2): #(latitude,longitude) tuples
 
 def picktarget(mycoordinate,destination,destip):
     # targets={(37.926868, -78.024902): IPs[0], (40.358615, -82.706838): IPs[1], (37.279518, -121.867905): IPs[2]} #map from coordinates to contact addresses
-    bestkey=mycoordinate
+    # bestkey=mycoordinate
+    bestkey=list(targets.keys())[0]
     print("my coordinate: ")
     print(mycoordinate)
     for key in targets.keys():
