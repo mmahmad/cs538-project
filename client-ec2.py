@@ -24,22 +24,22 @@ import time
 # ]
 
 IpTable={
-    (36.850947, -76.280997): 'http://34.204.74.243:5000/forward', # east-1: N. Virginia
-    (39.961083, -82.998592): 'http://13.58.203.246:5000/forward', # east-2: Ohio
-    (38.579675, -121.489587): 'http://54.215.188.3:5000/forward', # west-1: N. California
+    (36.850947, -76.280997): 'http://3.82.49.118:5000/forward', # east-1: N. Virginia
+    (39.961083, -82.998592): 'http://18.191.224.241:5000/forward', # east-2: Ohio
+    (38.579675, -121.489587): 'http://13.57.252.78:5000/forward', # west-1: N. California
     
-    (45.516595, -122.679850): 'http://35.166.131.254:5000/forward', # Oregon
-    (19.082792, 72.883933): 'http://13.232.9.79:5000/forward', # Mumbai
-    (37.553507, 126.986781): 'http://13.125.255.243:5000/forward', # Seoul
-    (1.352437, 103.860736): 'http://54.255.237.155:5000/forward', # Singapore
-    (-33.847927,150.6517866): 'http://54.252.137.172:5000/forward', # Sydney
-    (35.5040536,138.6486313): 'http://13.114.92.252:5000/forward', # Tokyo
-    (50.8325132,-130.1073912): 'http://35.183.35.149:5000/forward', # Central Canada
-    (50.1211277,8.4964811): 'http://18.197.144.127:5000/forward', # Frankfurt
-    (53.3942356,-10.1983315): 'http://34.244.33.202:5000/forward', # Ireland
-    (51.5285582,-0.2416811): 'http://35.178.94.52:5000/forward', # London
-    (48.8588377,2.2770203): 'http://52.47.145.82:5000/forward', # Paris
-    (59.3260668,17.8419713): 'http://13.53.38.55:5000/forward', # Stockholm
+    (45.516595, -122.679850): 'http://34.217.13.95:5000/forward', # Oregon
+    (19.082792, 72.883933): 'http://13.232.130.166:5000/forward', # Mumbai
+    (37.553507, 126.986781): 'http://52.79.84.130:5000/forward', # Seoul
+    (1.352437, 103.860736): 'http://13.229.251.105:5000/forward', # Singapore
+    (-33.847927,150.6517866): 'http://13.239.12.200:5000/forward', # Sydney
+    (35.5040536,138.6486313): 'http://54.95.11.194:5000/forward', # Tokyo
+    (50.8325132,-130.1073912): 'http://99.79.31.193:5000/forward', # Central Canada
+    (50.1211277,8.4964811): 'http://52.59.227.219:5000/forward', # Frankfurt
+    (53.3942356,-10.1983315): 'http://18.203.161.211:5000/forward', # Ireland
+    (51.5285582,-0.2416811): 'http://3.8.1.114:5000/forward', # London
+    (48.8588377,2.2770203): 'http://35.180.100.8:5000/forward', # Paris
+    (59.3260668,17.8419713): 'http://13.53.216.250:5000/forward', # Stockholm
 }
 
 coordinateMapping = {
@@ -85,7 +85,7 @@ targets = {}
 # DESTINATION_ADDRESS = 'http://34.217.75.213:8000' # AWS Oregon
 # DESTINATION_COORDINATES = tuple((43.812502, -120.672999)) # Oregon
 
-DESTINATION_ADDRESS = 'http://40.117.176.175:8000' # AWS Oregon
+DESTINATION_ADDRESS = 'http://13.82.226.87:8000' # AWS Oregon
 DESTINATION_COORDINATES = tuple((38.0033855,-79.4209249)) # Azure US-East (Virginia)
 
 def getTargets():
@@ -113,6 +113,8 @@ def distance(p1,p2): #(latitude,longitude) tuples
 def picktarget(mycoordinate,destination,destip):
     # targets={(37.926868, -78.024902): IPs[0], (40.358615, -82.706838): IPs[1], (37.279518, -121.867905): IPs[2]} #map from coordinates to contact addresses
     bestkey=mycoordinate
+    print("my coordinate: ")
+    print(mycoordinate)
     for key in targets.keys():
         print("key: " + str(key) + ", name: " + list(coordinateMapping.keys())[list(coordinateMapping.values()).index(key)])
         print("destination: ", destination)
@@ -138,6 +140,8 @@ def make_success_response(message):
 def getFirstHop():
     # return IPs[random.randint(0, len(IPs)-1)]
     mycoordinate = geocoder.ip('me')
+    print("my coordinate")
+    print(mycoordinate)
     return picktarget(tuple(mycoordinate.latlng), DESTINATION_COORDINATES, DESTINATION_ADDRESS)
 
 def sendMessage(message):
